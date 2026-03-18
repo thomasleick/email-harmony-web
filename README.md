@@ -1,78 +1,48 @@
-# Email Harmony Web
+# Email Harmony Web 🛡️
 
-Um classificador e analisador inteligente de e-mails, refatorado com base em práticas **Component Driven** e arquitetura **Feature-Sliced/Clean Architecture**, focado em escalabilidade e manutenção de longo prazo.
+Uma solução premium de triagem inteligente de emails, desenvolvida com **Next.js 15** e focada em extrair o máximo valor operacional de comunicações financeiras através de **IA Generativa**.
 
-## 🚀 Visão Geral do Projeto
+## 🚀 Experiência Premium (UX/UI)
 
-Este projeto é a evolução focada em engenharia avançada de um frontend legado (criado por ferramentas no-code/low-code). Ele classifica e-mails em **Produtivos** ou **Improdutivos** e, com base nisso, sugere respostas inteligentes. Toda a casca interage de forma limpa com um adapter de serviço, habilitando a fácil integração com uma API genérica e realística por trás.
+Este projeto foi elevado para um patamar de ferramenta profissional ("Sênior"), entregando:
+1.  **Glassmorphism & Aesthetics:** Interface rica usando `backdrop-blur` e gradientes mesh animados para um visual de software moderno e fluido.
+2.  **Dark Mode Nativo:** Suporte completo a temas Light/Dark com persistência automática via `localStorage` e toggle animado com **Framer Motion**.
+3.  **Dashboard de Analytics:** Painel de Business Intelligence em tempo real que monitora produtividade, backlog de emails críticos e média de prioridade da sessão.
+4.  **Triagem Inteligente:** Visualizadores de "Priority Pulse" que destacam automaticamente emails de alta urgência e sentimento negativo no histórico.
+5.  **Exportação de Inteligência:** Funcionalidade de exportar relatórios `.txt` detalhados contendo todo o raciocínio da IA e métricas de score.
 
-## 💻 Stack Utilizada
+## 💻 Stack Tecnológica
 
-- **Framework:** Next.js 15 (App Router)
-- **Linguagem:** TypeScript
-- **Estilização:** Tailwind CSS v4 + CVA (Class Variance Authority)
-- **Componentes Base:** shadcn/ui & Radix UI (Lucide p/ ícones, Framer Motion p/ animações)
-- **Gerenciamento de Estado Global:** Zustand
-- **Ferramental de Código:** ESLint v9, Prettier
-- **Qualidade de Código:** Strict Types & Aliases de importação com `@/*`.
+-   **Framework:** Next.js 15 (App Router / Turbopack)
+-   **Estilização:** Tailwind CSS + Framer Motion (Animações ricas)
+-   **Estado:** Zustand (com middleware `persist` para histórico e temas)
+-   **Ícones:** Lucide React
+-   **Feedback:** Sonner (Toasts de alta fidelidade)
 
-## 📁 Estrutura de Pastas (Arquitetura)
+## 📁 Arquitetura (FSD Inspired)
 
-Adotamos a segregação por base/domínio inspirada no FSD (Feature-Sliced Design):
+Seguimos uma segregação rigorosa por domínios e funcionalidades:
+-   `features/email-analysis`: Core da aplicação (Input, Results, Analytics).
+-   `features/history`: Persistência e display de atendimentos anteriores.
+-   `features/theme`: Motor de temas Light/Dark.
+-   **Adapter Pattern:** Chamadas de API isoladas em `services`, permitindo alternar entre Mock e Produção sem afetar a UI.
 
-\`\`\`
-src/
-├── app/                  # Next.js App Router (Páginas, CSS globais e layouts)
-├── components/
-│   ├── layout/          # Componentes globais estúpidos (Navbar, Footer)
-│   └── ui/              # Componentes de UI primitivos (Tokens shadcn, Buttons)
-├── features/             # Fatias de domínio da aplicação
-│   ├── email-analysis/  # Domínio centralizador: Análise do email
-│   │   ├── components/  # Presentational (EmailInput, ResultsPanel)
-│   │   ├── containers/  # Smart Components orquestradores (Ex: EmailAnalysisContainer)
-│   │   ├── domain/      # Types explícitos e entidades de negócio
-│   │   ├── hooks/       # Hooks de orquestração local (Clean handlers)
-│   │   └── services/    # Adapter Pattern para a API externa (mock x real)
-│   └── history/         # Domínio agregador: Histórico local
-│       ├── components/ 
-│       ├── domain/     
-│       └── store/       # Zustand store p/ gerência do histórico globalizado
-└── lib/                  # Utilitários globais genéricos (ex: clsx/twMerge)
-\`\`\`
+## 🛠 Instalação e Execução
 
-## 🛠 Como Rodar o Projeto
+1.  **Dependências:**
+    ```bash
+    npm install
+    ```
+2.  **Desenvolvimento:**
+    ```bash
+    npm run dev
+    ```
+3.  **Build de Produção:**
+    ```bash
+    npm run build
+    ```
 
-1. Certifique-se de ter o **Node.js** (v20+) instalado.
-2. Baixe as dependências:
-   \`\`\`bash
-   npm install
-   \`\`\`
-3. Inicie o servidor de desenvolvimento:
-   \`\`\`bash
-   npm run dev
-   \`\`\`
-4. Acesse [http://localhost:3000](http://localhost:3000).
-
-## 📐 Padrões Adotados & Decisões Arquiteturais
-
-1. **Containers vs Presentational Components:** 
-   No \`app/page.tsx\`, não há lógicas soltas. A página é unicamente compositiva. O \`EmailAnalysisContainer.tsx\` funciona como um maestro, lidando com os dados via Custom Hooks e Zustand, e os injeta transparentemente nos componentes "burros" (\`EmailInput\`, \`ResultsPanel\`).
-   
-2. **Camada de Adapters para Services:**
-   As chamadas de API são isoladas no padão Adapter (vide \`IEmailService\`). Atualmente uma implementação fluída mockada (\`EmailMockService\`) imita temporariamente o backend. Alternar para a API real nunca quebra a UI — pois ambas obedecem ao mesmo contrato de payload/resposta.
-   
-3. **Gerenciamento Desacoplado de Estado:**
-   No lugar do clássico *prop drilling* que degrada performace e clareza, o histórico gerencial roda sobre \`Zustand\` (\`useHistoryStore.ts\`), o que permite que \`HistorySidebar\` subscreva somente às fatias de dados de que necessita isoladamente e de forma autônoma.
-
-## 🤝 Boas Práticas para Contribuição
-
-- Siga a arquitetura definida e **não cruze domínios desnecessariamente**: Uma *feature* deve se comunicar com o exterior por meio da sua public API (Camada de Service ou Container exportado).
-- Realize o run de *linting* e aderência ao *Prettier* antes do PULL REQUEST:
-  \`\`\`bash
-  npm run lint
-  npx prettier --write .
-  \`\`\`
-- Utilize o padão rigoroso de **Semantic Commits**:
-  - \`feat(scope): add new login flow\`
-  - \`refactor(email): decouple logic to custom hook\`
-  - \`fix(history): resolve timestamp timezone error\`
+## 📐 Padrões de Código
+- **Clean Components**: Separação clara entre Containers (maestros de dados) e Presentational (UI pura).
+- **TypeScript Strict**: Tipagem completa para todos os retornos de análise da IA.
+- **Semantic Commits**: Padronização de histórico de commits para rastreabilidade.
