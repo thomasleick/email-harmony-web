@@ -1,16 +1,27 @@
 'use client';
 
-import { History } from 'lucide-react';
+import { History, Trash2 } from 'lucide-react';
 import { useHistoryStore } from '../store/useHistoryStore';
 
 export function HistorySidebar() {
-  const { items } = useHistoryStore();
+  const { items, clearHistory } = useHistoryStore();
 
   return (
     <div className="card-surface p-5">
-      <h3 className="section-label mb-4 flex items-center gap-2">
-        <History className="w-3.5 h-3.5" /> Histórico Recente
-      </h3>
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="section-label flex items-center gap-2">
+          <History className="w-3.5 h-3.5" /> Histórico Recente
+        </h3>
+        {items.length > 0 && (
+          <button
+            onClick={clearHistory}
+            className="text-[10px] font-medium text-muted-foreground hover:text-destructive transition-colors flex items-center gap-1"
+          >
+            <Trash2 className="w-3 h-3" />
+            Limpar
+          </button>
+        )}
+      </div>
       <div className="space-y-2">
         {items.length === 0 ? (
           <p className="text-xs text-muted-foreground/60 italic">Nenhum processamento recente.</p>

@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle2, XCircle, Copy, Sparkles, Check } from 'lucide-react';
+import { CheckCircle2, XCircle, Copy, Sparkles, Check, Download } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { AnalysisResult } from '../domain/email.types';
@@ -8,6 +8,36 @@ interface ResultsPanelProps {
   result: AnalysisResult | null;
   loading: boolean;
   onUpdateResponse: (text: string) => void;
+}
+
+function exportAnalysis(result: AnalysisResult) {
+  const content = [
+    '═══════════════════════════════════════════',
+    '    EMAIL HARMONY — Relatório de Análise',
+    '═══════════════════════════════════════════',
+    '',
+    `Classificação: ${result.classification}`,
+    `Confiança:     ${(result.confidence * 100).toFixed(1)}%`,
+    '',
+    '───────────────────────────────────────────',
+    'Resposta Sugerida:',
+    '───────────────────────────────────────────',
+    '',
+    result.suggestedResponse,
+    '',
+    '───────────────────────────────────────────',
+    `Gerado em: ${new Date().toLocaleString('pt-BR')}`,
+    '═══════════════════════════════════════════',
+  ].join('\n');
+
+  const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `analise-email-${Date.now()}.txt`;
+  a.click();
+  URL.revokeObjectURL(url);
+  toast.success('Relatório exportado com sucesso!');
 }
 
 export function ResultsPanel({ result, loading, onUpdateResponse }: ResultsPanelProps) {
@@ -100,12 +130,22 @@ export function ResultsPanel({ result, loading, onUpdateResponse }: ResultsPanel
           <div className="card-surface overflow-hidden">
             <div className="px-5 py-3 border-b border-border/50 flex items-center justify-between">
               <h3 className="text-sm font-semibold text-foreground">Sugestão de Resposta</h3>
-              <button
-                onClick={handleCopy}
-                className="p-2 hover:bg-secondary rounded-lg transition-colors text-muted-foreground hover:text-primary"
-              >
-                {copied ? <Check className="w-4 h-4 text-success" /> : <Copy className="w-4 h-4" />}
-              </button>
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={() => exportAnalysis(result)}
+                  className="p-2 hover:bg-secondary rounded-lg transition-colors text-muted-foreground hover:text-primary"
+                  title="Exportar relatório (.txt)"
+                >
+                  <Download className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={handleCopy}
+                  className="p-2 hover:bg-secondary rounded-lg transition-colors text-muted-foreground hover:text-primary"
+                  title="Copiar resposta"
+                >
+                  {copied ? <Check className="w-4 h-4 text-success" /> : <Copy className="w-4 h-4" />}
+                </button>
+              </div>
             </div>
             <div className="p-5">
               <textarea
