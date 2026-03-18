@@ -1,4 +1,5 @@
 import { Sparkles } from 'lucide-react';
+import { ThemeToggle } from '@/features/theme/components/ThemeToggle';
 
 export function Navbar() {
   return (
@@ -11,15 +12,22 @@ export function Navbar() {
           <Sparkles className="text-primary-foreground w-4 h-4" />
         </div>
         <span className="font-semibold tracking-tight text-foreground">
-          Fortress <span className="text-muted-foreground font-medium">AI</span>
+          Fortress <span className="text-muted-foreground font-medium border-l border-border/50 ml-1.5 pl-2">AI</span>
         </span>
       </div>
       <div className="flex items-center gap-4">
-        <span className="text-xs font-medium text-muted-foreground hidden sm:block">
-          Classificação de Emails
-        </span>
-        <div className="h-4 w-px bg-border hidden sm:block" />
-        <div className="w-8 h-8 rounded-full bg-secondary border border-border" />
+        <div className="hidden sm:flex items-center gap-4 border-r border-border/50 pr-4">
+          <span className="text-xs font-medium text-muted-foreground">
+            Classificação de Emails
+          </span>
+          <ThemeToggle />
+        </div>
+        <div className="sm:hidden">
+          <ThemeToggle />
+        </div>
+        <div className="w-8 h-8 rounded-full bg-secondary border border-border flex items-center justify-center">
+            <div className="w-2 h-2 rounded-full bg-success animate-pulse" />
+        </div>
       </div>
     </nav>
   );
