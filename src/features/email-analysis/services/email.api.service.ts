@@ -11,7 +11,6 @@ export class EmailApiService implements IEmailService {
       formData.append('file', payload.file);
     }
 
-    // Utiliza a variável de ambiente se estiver na Vercel, ou localhost no ambiente de dev
     const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
     
     const response = await fetch(`${baseUrl}/api/v1/analyze-email`, {
@@ -28,6 +27,12 @@ export class EmailApiService implements IEmailService {
     return {
       classification: data.classification,
       confidence: data.confidence,
+      sentiment: data.sentiment,
+      sentiment_score: data.sentiment_score,
+      urgency: data.urgency,
+      urgency_score: data.urgency_score,
+      priority_score: data.priority_score,
+      reasoning: data.reasoning,
       suggestedResponse: data.suggested_response,
     };
   }
