@@ -160,7 +160,7 @@ export function ResultsPanel({ result, loading, onUpdateResponse }: ResultsPanel
               <div className="text-right">
                 <span className="section-label mb-1 block uppercase tracking-wider text-[10px]">Prioridade</span>
                 <div className="text-2xl font-black text-foreground tabular-nums">
-                  {(result.priority_score * 100).toFixed(0)}%
+                  {((result.priority_score ?? 0) * 100).toFixed(0)}%
                 </div>
               </div>
             </div>

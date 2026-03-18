@@ -23,7 +23,7 @@ export function SessionAnalytics() {
   const total = items.length;
   const productive = items.filter(i => i.classification === 'Produtivo').length;
   const highUrgency = items.filter(i => i.urgency === 'Alta').length;
-  const avgPriority = items.reduce((acc, curr) => acc + curr.priority_score, 0) / total;
+  const avgPriority = items.reduce((acc, curr) => acc + (curr.priority_score ?? 0), 0) / total;
   const prodPercent = (productive / total) * 100;
 
   return (
