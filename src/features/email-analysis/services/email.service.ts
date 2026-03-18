@@ -1,5 +1,5 @@
 import { AnalysisResult, EmailPayload } from '../domain/email.types';
-import { EmailMockService } from './email.mock.service';
+import { EmailApiService } from './email.api.service';
 
 /**
  * Interface que define o contrato do serviço de e-mail.
@@ -9,5 +9,5 @@ export interface IEmailService {
   analyzeEmail(payload: EmailPayload): Promise<AnalysisResult>;
 }
 
-// Quando a API real estiver pronta, basta trocar para EmailApiService
-export const emailService: IEmailService = new EmailMockService();
+// Trocado para o Backend API FastAPI Real!
+export const emailService: IEmailService = new EmailApiService();
