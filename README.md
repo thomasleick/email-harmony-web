@@ -1,6 +1,6 @@
 # Email Harmony Web 🛡️
 
-Uma solução premium de triagem inteligente de emails, desenvolvida com **Next.js 15** e focada em extrair o máximo valor operacional de comunicações financeiras através de **IA Generativa**.
+Uma solução premium de triagem inteligente de emails, desenvolvida com **Next.js 15** e focada em extrair o máximo valor operacional de comunicações financeiras através de **IA Generativa (Gemini 1.5 Flash)**.
 
 ## 🚀 Experiência Premium (UX/UI)
 
