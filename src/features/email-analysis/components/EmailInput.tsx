@@ -128,15 +128,26 @@ export function EmailInput({ onSubmit, loading }: EmailInputProps) {
         </div>
       </div>
 
-      <div className="flex gap-2 flex-wrap">
+      <div className="flex gap-2 flex-wrap items-center">
         {EXAMPLE_EMAILS.map((ex) => (
-          <button
-            key={ex.label}
-            onClick={() => setText(ex.text)}
-            className="chip-button"
-          >
-            + {ex.label}
-          </button>
+          <div key={ex.label} className="flex items-center gap-1 group">
+            <button
+              onClick={() => setText(ex.text)}
+              className="chip-button"
+            >
+              + {ex.label}
+            </button>
+            {ex.label === 'Enviar Comprovante' && (
+              <a 
+                href="/comprovante-modelo.pdf" 
+                download 
+                className="text-[10px] font-bold text-primary/60 hover:text-primary underline uppercase tracking-tighter transition-all"
+                title="Baixar modelo para teste"
+              >
+                (Modelo PDF)
+              </a>
+            )}
+          </div>
         ))}
       </div>
     </div>
