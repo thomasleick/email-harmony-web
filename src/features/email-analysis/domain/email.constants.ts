@@ -12,11 +12,11 @@ export const EXAMPLE_EMAILS = [
     text: 'Esqueci minha senha do aplicativo e não consigo realizar o primeiro acesso. Podem me ajudar?',
   },
   {
-    label: 'Enviar Comprovante',
-    text: 'Segue em anexo o comprovante da transferência de R$ 200,00 que realizei hoje cedo para minha conta corrente.',
-  },
-  {
     label: 'Spam Comercial',
     text: 'Oferta imperdível! Ganhe até 500% de retorno com nosso novo fundo de investimentos. Clique aqui para saber mais.',
+  },
+  {
+    label: 'Enviar Comprovante',
+    text: 'Segue em anexo o comprovante da transferência de R$ 200,00 que realizei hoje cedo para minha conta corrente.',
   },
 ];
